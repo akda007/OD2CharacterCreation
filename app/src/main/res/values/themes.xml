@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Seu tema principal do aplicativo -->
+    <style name="Theme.OD2CharacterCreator" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- NOVO TEMA PARA A SPLASH SCREEN -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Cor de fundo da splash screen -->
+        <item name="windowSplashScreenBackground">@color/background_dark</item>
+        <!-- O ícone que será mostrado (seu dado) -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/dado_20</item>
+        <!-- O tema que o app usará DEPOIS que a splash screen terminar -->
+        <item name="postSplashScreenTheme">@style/Theme.OD2CharacterCreator</item>
+    </style>
+</resources>
