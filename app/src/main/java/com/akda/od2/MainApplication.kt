@@ -434,7 +434,6 @@ fun DiceRollAnimation(onAnimationEnd: () -> Unit) {
     }
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(32.dp)) {
-        // Use uma imagem de dado genérica. Adicione um d20.png em res/drawable se tiver um.
         Image(
             painter = painterResource(id = R.drawable.dado_20),
             contentDescription = "Dado rolando",

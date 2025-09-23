@@ -7,7 +7,6 @@ import com.akda.od2.domain.application.CreatePlayer
 import com.akda.od2.domain.application.RollAttributes
 import com.akda.od2.domain.repository.PlayerRepository
 
-// Objeto singleton para garantir que temos apenas uma instância do repositório
 object Dependencies {
     val repository: PlayerRepository = InMemoryPlayerRepositoryImpl()
     val rollAttributes = RollAttributes()

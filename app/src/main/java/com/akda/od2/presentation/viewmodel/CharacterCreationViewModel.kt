@@ -18,10 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-/**
- * Representa todo o estado da tela de criação de personagem.
- * A UI irá observar esta classe para saber o que exibir.
- */
+
 data class CharacterCreationUiState(
     val characterName: String = "",
     val selectedRollMethod: RollMethod = RollMethod.AVENTUREIRO,
@@ -34,10 +31,7 @@ data class CharacterCreationUiState(
     val savedCharacters: List<Player> = emptyList()
 )
 
-/**
- * ViewModel que gerencia a lógica da UI e o estado da tela de criação de personagem.
- * Ele sobrevive a mudanças de configuração (como rotação da tela).
- */
+
 class CharacterCreationViewModel(
     private val rollAttributes: RollAttributes,
     private val createPersonagem: CreatePlayer,
@@ -92,7 +86,6 @@ class CharacterCreationViewModel(
 
     fun finalizeCharacter() {
         val currentState = uiState.value
-        // Garante que todos os dados necessários foram preenchidos
         if (currentState.characterName.isNotBlank() &&
             currentState.finalAttributes != null &&
             currentState.selectedRace != null &&
@@ -117,12 +110,10 @@ class CharacterCreationViewModel(
                 }
             }
         } else {
-            // Aqui você poderia emitir um evento de erro para a UI, como um Toast
             println("[ERROR] Faltam dados para criar o personagem.")
         }
     }
 
-    // Função para reiniciar o processo de criação
     fun resetCreation() {
         _uiState.value = CharacterCreationUiState()
     }
