@@ -1,7 +1,10 @@
 package com.akda.od2.domain.model
 
+import java.util.UUID
 
 data class Player(
+    val id: String = UUID.randomUUID().toString(),
+
     val name: String,
     val race: Race,
     val characterClass: CharacterClass,

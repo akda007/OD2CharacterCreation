@@ -5,9 +5,10 @@ import com.akda.od2.domain.model.AttributeType
 import com.akda.od2.domain.model.CharacterClass
 import com.akda.od2.domain.model.Player
 import com.akda.od2.domain.model.Race
+import javax.inject.Inject
 
 
-class CreatePlayer {
+class CreatePlayer @Inject constructor() {
 
     operator fun invoke(
         name: String,

@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 data class CharacterCreationUiState(
@@ -32,7 +34,8 @@ data class CharacterCreationUiState(
 )
 
 
-class CharacterCreationViewModel(
+@HiltViewModel
+class CharacterCreationViewModel @Inject constructor(
     private val rollAttributes: RollAttributes,
     private val createPersonagem: CreatePlayer,
     private val personagemRepository: PlayerRepository

@@ -3,9 +3,10 @@ package com.akda.od2.domain.application
 import com.akda.od2.domain.model.AttributeType
 import com.akda.od2.domain.model.RollMethod
 import com.akda.od2.domain.model.RollResult
+import javax.inject.Inject
 
 
-class RollAttributes {
+class RollAttributes @Inject constructor() {
 
     operator fun invoke(method: RollMethod): RollResult {
         return when (method) {

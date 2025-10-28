@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -59,4 +61,17 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    val room_version = "2.5.0"
+    implementation(libs.androidx.room.runtime)
+    implementation("androidx.room:room-ktx:$room_version") // Suporte a Coroutines
+    ksp(libs.androidx.room.compiler) // Compilador KSP (mais rápido)
+
+    // Hilt (Injeção de Dependência)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Gson (Para converter objetos complexos para String/JSON)
+    implementation("com.google.code.gson:gson:2.13.2")
 }
+
