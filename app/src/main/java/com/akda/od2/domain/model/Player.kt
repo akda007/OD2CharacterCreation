@@ -15,7 +15,7 @@ data class Player(
     val currentXP: Int = 0,
 
     val maxHitPoints: Int,
-    val currentHitPoints: Int,
+    var currentHitPoints: Int,
 
     val armorClass: Int,
     val movement: Int,

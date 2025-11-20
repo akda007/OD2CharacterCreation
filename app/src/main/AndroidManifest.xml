@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 1. Add these permissions for Background Service and Notifications -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -12,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App.Starting">
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -19,10 +25,16 @@
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 2. Register the Battle Service here -->
+        <service
+            android:name=".domain.service.BattleService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+
     </application>
 
 </manifest>

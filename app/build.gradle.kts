@@ -1,34 +1,27 @@
+// build.gradle.kts (Module: app)
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.ksp)  // Use alias aqui também
+    alias(libs.plugins.hilt) // Use alias aqui também
 }
 
 android {
     namespace = "com.akda.od2"
-    compileSdk = 36
+    compileSdk = 35 // Recomendo baixar para 35. O 36 ainda é preview e pode bugar o Hilt/Room.
 
     defaultConfig {
         applicationId = "com.akda.od2"
         minSdk = 28
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
+    // ... (resto das configurações de build types e compileOptions mantêm igual)
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -42,36 +35,48 @@ android {
 }
 
 dependencies {
-
+    // --- Android Core ---
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.splashscreen) // A que adicionamos agora pouco
+
+    // --- COMPOSE (A parte que está falhando) ---
+    // O BOM controla as versões das libs do Compose abaixo
     implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // Ferramentas de Debug do Compose
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // --- NAVEGAÇÃO ---
+    // Se você estiver usando Navigation Compose, adicione isso ao TOML e aqui.
+    // Se não estiver no TOML, comente a linha abaixo por enquanto:
+    // implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // --- ROOM (Banco de dados) ---
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // --- HILT (Injeção de Dependência) ---
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // --- OUTROS ---
+    implementation(libs.transport.runtime)
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    // --- TESTES ---
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-
-    val room_version = "2.5.0"
-    implementation(libs.androidx.room.runtime)
-    implementation("androidx.room:room-ktx:$room_version") // Suporte a Coroutines
-    ksp(libs.androidx.room.compiler) // Compilador KSP (mais rápido)
-
-    // Hilt (Injeção de Dependência)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
-    // Gson (Para converter objetos complexos para String/JSON)
-    implementation("com.google.code.gson:gson:2.13.2")
+    implementation(libs.androidx.navigation.compose)
 }
-

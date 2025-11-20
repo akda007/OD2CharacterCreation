@@ -32,6 +32,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.akda.od2.BattleScreen
 import com.akda.od2.R
 import com.akda.od2.domain.application.CreatePlayer
 import com.akda.od2.domain.model.*
@@ -97,6 +98,8 @@ fun AppNavigation(navController: NavHostController, viewModel: CharacterCreation
         composable("main_menu") { MainMenuScreen(navController, viewModel) }
         composable("character_creation") { CharacterCreationFlow(navController, viewModel) }
         composable("character_list") { CharacterListScreen(navController, viewModel) }
+        // NEW ROUTE
+        composable("battle_screen") { BattleScreen(navController, viewModel) }
     }
 }
 
@@ -125,6 +128,13 @@ fun MainMenuScreen(navController: NavController, viewModel: CharacterCreationVie
             onClick = { navController.navigate("character_list") },
             text = "Listar Personagens",
             enabled = uiState.savedCharacters.isNotEmpty()
+        )
+        // NEW BUTTON
+        Spacer(modifier = Modifier.height(16.dp))
+        ThemedButton(
+            onClick = { navController.navigate("battle_screen") },
+            text = "Modo Aventura (Idle)",
+            enabled = true // Verification happens inside the screen
         )
     }
 }
@@ -443,4 +453,3 @@ fun DiceRollAnimation(onAnimationEnd: () -> Unit) {
         )
     }
 }
-
